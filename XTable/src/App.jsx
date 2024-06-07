@@ -12,11 +12,27 @@ function App() {
 
     { date: "2020-09-03", views: 200, article: "Article 4" },
   ]);
+  const handleSortByDate = () => {
+    setData((prev) => {
+      const sortedData = [...prev].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+      return sortedData;
+    });
+  };
+  const handleSortByViews = () => {
+    setData((prev) => {
+      const sortedData = [...prev].sort(
+        (a, b) => new Date(a.views) - new Date(b.views)
+      );
+      return sortedData;
+    });
+  };
   return (
     <div>
       <h1>Date and Views Table</h1>
-      <button>Sort by Date</button>
-      <button>Sort by Views</button>
+      <button onClick={handleSortByDate}>Sort by Date</button>
+      <button onClick={handleSortByViews}>Sort by Views</button>
       <table>
         <thead>
           <tr>
@@ -24,9 +40,10 @@ function App() {
             <th>Views</th>
             <th>Article</th>
           </tr>
-          {tableData.map((item) => {
+
+          {tableData.map((item, index) => {
             return (
-              <tr key={item.article}>
+              <tr key={index}>
                 <td>{item.date}</td>
                 <td>{item.views}</td>
                 <td>{item.article}</td>
